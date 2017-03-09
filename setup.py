@@ -11,10 +11,6 @@ import os
 from setuptools import setup, find_packages
 import versioneer
 
-# Use this version when git data are not available, like in git zip archive.
-# Update when tagging a new release.
-FALLBACK_VERSION = '1.2.post0'
-
 # versioncfgfile holds version data for git commit hash and date.
 # It must reside in the same directory as version.py.
 MYDIR = os.path.dirname(os.path.abspath(__file__))
@@ -37,7 +33,7 @@ def gitinfo():
 def getversioncfg():
     import re
     from ConfigParser import RawConfigParser
-    vd0 = dict(version=FALLBACK_VERSION, commit='', date='', timestamp=0)
+    vd0 = dict(commit='', date='', timestamp=0)
     # first fetch data from gitarchivecfgfile, ignore if it is unexpanded
     g = vd0.copy()
     cp0 = RawConfigParser(vd0)
