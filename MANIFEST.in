@@ -2,3 +2,5 @@ recursive-include src *
 include AUTHORS.txt LICENSE*.txt README.rst
 recursive-exclude src *.pyc
 recursive-exclude * .gitattributes .gitignore .DS_Store
+include versioneer.py
+include src/diffpy/srfit/_version.py

@@ -9,6 +9,7 @@ Packages:   diffpy.srfit
 
 import os
 from setuptools import setup, find_packages
+import versioneer
 
 # Use this version when git data are not available, like in git zip archive.
 # Update when tagging a new release.
@@ -72,7 +73,8 @@ versiondata = getversioncfg()
 # define distribution
 setup_args = dict(
     name = "diffpy.srfit",
-    version = versiondata.get('DEFAULT', 'version'),
+    version = versioneer.get_version(),
+    cmdclass = versioneer.get_cmdclass(),
     namespace_packages = ['diffpy'],
     packages = find_packages('src'),
     package_dir = {'' : 'src'},

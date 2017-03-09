@@ -17,20 +17,14 @@
 """Definition of __version__, __date__, __gitsha__.
 """
 
-from pkg_resources import resource_filename
-from ConfigParser import RawConfigParser
+from diffpy.srfit._version import get_versions
 
-# obtain version information from the version.cfg file
-cp = RawConfigParser(dict(version='', date='', commit='', timestamp=0))
-if not cp.read(resource_filename(__name__, 'version.cfg')):
-    from warnings import warn
-    warn('Package metadata not found, execute "./setup.py egg_info".')
+v = get_versions()
 
-__version__ = cp.get('DEFAULT', 'version')
-__date__ = cp.get('DEFAULT', 'date')
-__gitsha__ = cp.get('DEFAULT', 'commit')
-__timestamp__ = cp.getint('DEFAULT', 'timestamp')
+__version__ = v['version']
+__date__ = ' '.join((v['date'][:10], v['date'][11:19], v['date'][-5:]))
+__gitsha__ = v['full-revisionid']
 
-del cp
+del v, get_versions
 
 # End of file
