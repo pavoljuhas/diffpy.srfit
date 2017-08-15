@@ -352,12 +352,15 @@ class Profile(Observable, Validatable):
         SrFitError
             If validation fails.
         """
-        datanotset = any(v is None for v in
-                [self.x, self.y, self.dy, self.xobs, self.yobs, self.dyobs])
+        checklist = [self.x, self.y, self.dy, self.xobs, self.yobs, self.dyobs]
+        datanotset = any(v is None for v in checklist)
         if datanotset:
-            raise SrFitError("Missing data")
-        if len(self.x) != len(self.y) or len(self.x) != len(self.dy):
-            raise SrFitError("Data are different lengths")
+            raise SrFitError("Missing data.")
+        emsg = "'{}' and '{}' arrays are of different lengths."
+        if len(self.x) != len(self.y):
+            raise SrFitError(emsg.format('x', 'y'))
+        if len(self.x) != len(self.dy):
+            raise SrFitError(emsg.format('x', 'dy'))
         return
 
 
