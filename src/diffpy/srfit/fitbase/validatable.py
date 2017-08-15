@@ -22,7 +22,10 @@ calculate the residual.
 __all__ = ["Validatable"]
 
 
-class Validatable(object):
+from abc import ABCMeta, abstractmethod
+
+
+class Validatable(metaclass=ABCMeta):
     """Abstract class with state that must be validated by FitRecipe.
     """
 
@@ -48,6 +51,7 @@ class Validatable(object):
         return
 
 
+    @abstractmethod
     def _validate(self):
         """Validate self and then any other associated Validatables.
 
