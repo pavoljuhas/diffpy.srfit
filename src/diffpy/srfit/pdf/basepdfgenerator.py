@@ -272,9 +272,9 @@ class BasePDFGenerator(ProfileGenerator):
             If validation fails.
         """
         if self._calc is None:
-            raise SrFitError("'_calc' is None")
+            raise SrFitError("'_calc' is None.")
         if self._phase is None:
-            raise SrFitError("'_phase' is None")
+            raise SrFitError("'_phase' is None.")
         ProfileGenerator._validate(self)
         return
 

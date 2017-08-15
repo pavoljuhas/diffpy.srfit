@@ -136,7 +136,7 @@ class Parameter(_parameter_interface, Argument, Validatable):
             If validation fails.
         """
         if self.value is None:
-            raise SrFitError("value of '%s' is None"%self.name)
+            raise SrFitError("value of '%s' is None." % self.name)
         return
 
 # End class Parameter
@@ -235,7 +235,7 @@ class ParameterProxy(Parameter):
             If validation fails.
         """
         if self.par is None:
-            raise SrFitError("par is None")
+            raise SrFitError("par is None.")
         self.par._validate()
         return
 

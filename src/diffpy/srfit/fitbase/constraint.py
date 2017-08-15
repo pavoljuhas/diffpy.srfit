@@ -98,9 +98,9 @@ class Constraint(Validatable):
             If validation fails.
         """
         if self.par is None:
-            raise SrFitError("par is None")
+            raise SrFitError("par is None.")
         if self.eq is None:
-            raise SrFitError("eq is None")
+            raise SrFitError("eq is None.")
         self.par._validate()
         from diffpy.srfit.equation.visitors import validate
         try:
@@ -113,10 +113,10 @@ class Constraint(Validatable):
             val = self.eq()
             self.par.setValue(val)
         except TypeError as e:
-            raise SrFitError("eq cannot be evaluated")
+            raise SrFitError("eq cannot be evaluated.")
         finally:
             if val is None:
-                raise SrFitError("eq evaluates to None")
+                raise SrFitError("eq evaluates to None.")
 
         return
 

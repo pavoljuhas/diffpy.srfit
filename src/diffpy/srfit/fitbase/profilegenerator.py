@@ -178,7 +178,7 @@ class ProfileGenerator(Operator, ParameterSet):
             If validation fails.
         """
         if self.profile is None:
-            raise SrFitError("profile is None")
+            raise SrFitError("profile is None.")
         self.profile._validate()
         ParameterSet._validate(self)
         return

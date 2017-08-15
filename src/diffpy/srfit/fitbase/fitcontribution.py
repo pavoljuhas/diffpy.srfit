@@ -338,16 +338,16 @@ class FitContribution(ParameterSet):
         except ValueError as e:
             raise SrFitError(e)
         if self._eq is None:
-            raise SrFitError("_eq is None")
+            raise SrFitError("_eq is None.")
 
         val = None
         try:
             val = self._eq()
         except TypeError as e:
-            raise SrFitError("_eq cannot be evaluated: %s"%e)
+            raise SrFitError("_eq cannot be evaluated: %s" % e)
 
         if val is None:
-            raise SrFitError("_eq evaluates to None")
+            raise SrFitError("_eq evaluates to None.")
 
         # Try to get the value for residual
         try:
@@ -357,9 +357,9 @@ class FitContribution(ParameterSet):
         try:
             val = self.residual()
         except TypeError as e:
-            raise SrFitError("residual cannot be evaluated")
+            raise SrFitError("residual cannot be evaluated.")
         if val is None:
-            raise SrFitError("residual evaluates to None")
+            raise SrFitError("residual evaluates to None.")
         return
 
 # End of file
