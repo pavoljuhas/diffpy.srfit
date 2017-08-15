@@ -23,6 +23,8 @@ from diffpy.srfit.fitbase.fitrecipe import FitRecipe
 from diffpy.srfit.fitbase.fitcontribution import FitContribution
 from diffpy.srfit.fitbase.profile import Profile
 from diffpy.srfit.fitbase.parameter import Parameter
+from diffpy.srfit.fitbase.calculator import Calculator
+from diffpy.srfit.exceptions import SrFitError
 
 
 class TestFitRecipe(unittest.TestCase):
@@ -238,6 +240,49 @@ class TestFitRecipe(unittest.TestCase):
 
         return
 
+
+    def testCalculatorValidation(self):
+        """Verify Calculator object validates as expected.
+        """
+        class LineCalc(Calculator):
+
+            def __init__(self, name):
+                Calculator.__init__(self, name)
+                self.newParameter("slope", 1.0)
+                self.newParameter("intercept", 0.0)
+                return
+
+            def __call__(self, x):
+                a = self.slope.getValue()
+                b = self.intercept.getValue()
+                return a * x + b
+        # End of class LineCalc
+
+        recipe = self.recipe
+        cont = self.fitcontribution
+        # use LineCalc as a model function in the contribution
+        lc = LineCalc("line")
+        cont.registerCalculator(lc)
+        cont.setEquation('line')
+        x0 = self.profile.xobs
+        y0 = self.profile.yobs
+        y1 = recipe.residual()
+        # verify that "line" is used for model calculation
+        self.assertTrue(array_equal(x0 - y0, y1))
+        # verify "line" is invalid with a Parameter unset
+        recipe._updateConfiguration()
+        lc.intercept << None
+        self.assertRaises(SrFitError, recipe.residual)
+        cont.line.intercept << 0
+        cont.line.slope << None
+        recipe._updateConfiguration()
+        self.assertRaises(SrFitError, recipe.residual)
+        cont.line.slope << 0
+        y2 = recipe.residual()
+        self.assertTrue(array_equal(-y0, y2))
+        return
+
+# End of class TestFitRecipe
 
 if __name__ == "__main__":
     unittest.main()
