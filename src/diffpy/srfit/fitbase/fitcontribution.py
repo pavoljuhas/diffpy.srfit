@@ -317,15 +317,16 @@ class FitContribution(ParameterSet):
 
 
     def _validate(self):
-        """Validate my state.
+        """Validate and ensure that residual can be calculated.
 
-        This performs profile validations.
-        This performs ProfileGenerator validations.
-        This validates _eq.
-        This validates _reseq and residual.
+        Perform validation for the associated `Profile`, `ProfileGenerator`
+        objects.  Also check the model equation `_eq`, the residual equation
+        `_reseq` and make sure `residual` can be evaluated.
 
-        Raises SrFitError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         self.profile._validate()
         ParameterSet._validate(self)

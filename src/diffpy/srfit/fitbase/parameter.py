@@ -128,10 +128,12 @@ class Parameter(_parameter_interface, Argument, Validatable):
     def _validate(self):
         """Validate my state.
 
-        This validates that value is not None.
+        Require the `value` of this `Parameter` is not ``None``.
 
-        Raises SrFitError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         if self.value is None:
             raise SrFitError("value of '%s' is None"%self.name)
@@ -225,10 +227,12 @@ class ParameterProxy(Parameter):
     def _validate(self):
         """Validate my state.
 
-        This validates that value and par are not None.
+        Require the `value` and `par` are not ``None``.
 
-        Raises SrFitError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         if self.par is None:
             raise SrFitError("par is None")

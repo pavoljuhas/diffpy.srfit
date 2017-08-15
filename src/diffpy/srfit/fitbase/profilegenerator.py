@@ -160,22 +160,27 @@ class ProfileGenerator(Operator, ParameterSet):
         """
         return
 
+
     def _validate(self):
         """Validate my state.
 
-        This performs profile validations.
-        This performs ParameterSet validations.
-        This does not validate the operation, since this could be costly. The
-        operation should be validated with a containing equation.
+        Require the `profile` is set and valid.  Also perform validation
+        inherited from `ParameterSet`.
 
-        Raises SrFitError if validation fails.
+        Notes
+        -----
+            This does not validate the operation, since it could be costly.
+            The operation should be validated with a containing equation.
 
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         if self.profile is None:
             raise SrFitError("profile is None")
         self.profile._validate()
         ParameterSet._validate(self)
         return
-
 
 # End class ProfileGenerator

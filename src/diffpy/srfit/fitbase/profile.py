@@ -344,11 +344,13 @@ class Profile(Observable, Validatable):
     def _validate(self):
         """Validate my state.
 
-        This validates that x, y, dy, xobx, yobs and dyobs are not None.
-        This validates that x, y, and dy are the same length.
+        Require `x`, `y`, `dy`, `xobx`, `yobs` and `dyobs` are not ``None``.
+        Also require that `x`, `y`, and `dy` are of the same length.
 
-        Raises SrFitError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         datanotset = any(v is None for v in
                 [self.x, self.y, self.dy, self.xobs, self.yobs, self.dyobs])

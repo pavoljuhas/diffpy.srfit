@@ -105,11 +105,12 @@ class Calculator(Operator, ParameterSet):
         This does not validate the operation, since this could be costly. The
         operation should be validated with a containing equation.
 
-        Raises AttributeError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         ParameterSet._validate(self)
-
         return
 
 # End class Calculator

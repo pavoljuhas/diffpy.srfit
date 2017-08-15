@@ -259,21 +259,25 @@ class BasePDFGenerator(ProfileGenerator):
         self._calc.rmax = r[-1] + 0.5*self._calc.rstep
         return
 
+
     def _validate(self):
         """Validate my state.
 
-        This validates that the phase is not None.
-        This performs ProfileGenerator validations.
+        Require that `phase` is not ``None`` and then perform
+        `ProfileGenerator` validations.
 
-        Raises SrFitError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         if self._calc is None:
-            raise SrFitError("_calc is None")
+            raise SrFitError("'_calc' is None")
         if self._phase is None:
-            raise SrFitError("_phase is None")
+            raise SrFitError("'_phase' is None")
         ProfileGenerator._validate(self)
         return
+
 
     def __call__(self, r):
         """Calculate the PDF.

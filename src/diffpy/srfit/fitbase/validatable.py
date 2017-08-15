@@ -23,38 +23,44 @@ __all__ = ["Validatable"]
 
 
 class Validatable(object):
-    """Validatable class.
-
-    A Validatable has state that must be validated by a FitRecipe.
-
+    """Abstract class with state that must be validated by FitRecipe.
     """
 
     def _validateOthers(self, iterable):
-        """Method to validate configuration of Validatables in iterable.
+        """Validate configuration of Validatable objects in the iterable.
 
-        This is provided as a convenience for derived classes.  No need to
-        overload this. Call this method from overloaded _validate with an
-        iterable of other Validatables.
+        Parameters
+        ----------
+        iterable
+            The objects to be validated.  Only the `Validatable` instances
+            are checked, all other objects are ignored.
 
+        Notes
+        -----
+            This is provided as a convenience for derived classes.
+            Call this method from overloaded `_validate` with an
+            iterable of objects to be validated.
         """
         for obj in iterable:
             if obj is self: continue
             if isinstance(obj, Validatable):
                 obj._validate()
-
         return
+
 
     def _validate(self):
-        """Validate self and Validatables.
+        """Validate self and then any other associated Validatables.
 
-        Overload this in a derived class.
+        This method must be overload in a derived class.
 
-        Raises AttributeError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
-        # Validate self here.
+        # Validate self in a derived class.
         # Then validate others.
-        return
+        pass
 
 # End class Validatable
 

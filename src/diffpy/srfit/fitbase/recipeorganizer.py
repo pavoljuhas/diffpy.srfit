@@ -333,9 +333,12 @@ class RecipeContainer(Observable, Configurable, Validatable):
     def _validate(self):
         """Validate my state.
 
-        This validates that contained Parameters and managed objects are valid.
+        Require that contained `Parameters` and managed objects are valid.
 
-        Raises AttributeError if validation fails.
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         iterable = chain(self.__iter__(), self._iterManaged())
         self._validateOthers(iterable)
@@ -853,13 +856,17 @@ class RecipeOrganizer(_recipeorganizer_interface, RecipeContainer):
 
         return restraints
 
+
     def _validate(self):
         """Validate my state.
 
-        This performs RecipeContainer validations.
-        This validates contained Restraints and Constraints.
+        This performs `RecipeContainer` validations and then
+        validates the contained `Restraints` and `Constraints`.
 
-        Raises AttributeError if validation fails.
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         RecipeContainer._validate(self)
         iterable = chain(self._restraints, self._constraints.values())

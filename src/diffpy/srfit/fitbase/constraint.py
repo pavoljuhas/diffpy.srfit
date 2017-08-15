@@ -85,14 +85,17 @@ class Constraint(Validatable):
         self.par.setValue(val)
         return
 
+
     def _validate(self):
         """Validate my state.
 
-        This validates that par is not None.
-        This validates eq.
+        Require that `par` is not ``None`` and that equation `eq` is
+        available and can be evaluated.
 
-        Raises SrFitError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         if self.par is None:
             raise SrFitError("par is None")

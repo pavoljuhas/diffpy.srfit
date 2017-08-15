@@ -88,16 +88,19 @@ class Restraint(Validatable):
 
         return penalty
 
+
     def _validate(self):
         """Validate my state.
 
-        This validates eq.
+        Require the restraint equation `eq` is set and can be evaluated.
 
-        Raises SrFitError if validation fails.
-
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         if self.eq is None:
-            raise SrFitError("eq is None")
+            raise SrFitError("eq is None.")
         from diffpy.srfit.equation.visitors import validate
         try:
             validate(self.eq)
@@ -108,10 +111,10 @@ class Restraint(Validatable):
         try:
             val = self.eq()
         except TypeError as e:
-            raise SrFitError("eq cannot be evaluated")
+            raise SrFitError("'eq' cannot be evaluated.")
         finally:
             if val is None:
-                raise SrFitError("eq evaluates to None")
+                raise SrFitError("'eq' evaluates to None.")
 
         return
 

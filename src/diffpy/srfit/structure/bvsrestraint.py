@@ -78,11 +78,17 @@ class BVSRestraint(Restraint):
 
         return penalty
 
+
     def _validate(self):
-        """This evaluates the calculator.
+        """This validates the BVSRestraint object.
 
-        Raises SrFitError if validation fails.
+        Require that penalty can be evaluated and that the simulated
+        bond valence sums are non-zero.
 
+        Raises
+        ------
+        SrFitError
+            If validation fails.
         """
         from numpy import nan
         p = self.penalty()
@@ -95,6 +101,6 @@ class BVSRestraint(Restraint):
             raise SrFitError(emsg)
         return
 
-    # End of class BVSRestraint
+# End of class BVSRestraint
 
 # End of file
