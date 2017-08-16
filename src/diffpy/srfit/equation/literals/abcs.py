@@ -25,10 +25,12 @@ class LiteralABC(metaclass=ABCMeta):
     """Abstract Base Class for Literal. See Literal for usage."""
 
     @abstractmethod
-    def identify(self, visitor): pass
+    def identify(self, visitor):
+        pass    # pragma: no cover
 
     @abstractmethod
-    def getValue(self): pass
+    def getValue(self):
+        pass    # pragma: no cover
 
     name = abstractproperty(None, None)
 
@@ -39,7 +41,8 @@ class ArgumentABC(LiteralABC):
     """Abstract Base Class for Argument. See Argument for usage."""
 
     @abstractmethod
-    def setValue(self, value): pass
+    def setValue(self, value):
+        pass    # pragma: no cover
 
     const = abstractproperty(None, None)
     value = abstractproperty(None, None)
@@ -51,7 +54,8 @@ class OperatorABC(LiteralABC):
     """Abstract Base Class for Operator. See Operator for usage."""
 
     @abstractmethod
-    def addLiteral(self, literal): pass
+    def addLiteral(self, literal):
+        pass    # pragma: no cover
 
     args = abstractproperty(None, None)
     nin = abstractproperty(None, None)

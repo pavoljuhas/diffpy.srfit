@@ -64,7 +64,7 @@ class Validatable(metaclass=ABCMeta):
         """
         # Validate self in a derived class.
         # Then validate others.
-        pass
+        pass    # pragma: no cover
 
 # End class Validatable
 
