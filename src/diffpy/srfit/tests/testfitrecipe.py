@@ -23,7 +23,7 @@ from diffpy.srfit.fitbase.fitrecipe import FitRecipe
 from diffpy.srfit.fitbase.fitcontribution import FitContribution
 from diffpy.srfit.fitbase.profile import Profile
 from diffpy.srfit.fitbase.parameter import Parameter
-from diffpy.srfit.fitbase.calculator import Calculator
+from diffpy.srfit.fitbase import Calculator, ProfileGenerator
 from diffpy.srfit.exceptions import SrFitError
 
 
@@ -280,6 +280,41 @@ class TestFitRecipe(unittest.TestCase):
         cont.line.slope << 0
         y2 = recipe.residual()
         self.assertTrue(array_equal(-y0, y2))
+        return
+
+
+    def testProfileValidation(self):
+        """Verify Profile object validates as expected.
+        """
+        profile = self.profile
+        recipe = self.recipe
+        # initial profile should be valid
+        recipe._updateConfiguration()
+        recipe.residual()
+        x0 = profile.x.copy()
+        profile.x = linspace(0, 5, 6)
+        recipe._updateConfiguration()
+        self.assertRaises(SrFitError, recipe.residual)
+        profile.x = x0
+        recipe.residual()
+        profile.dy = linspace(0, 5, 6)
+        recipe._updateConfiguration()
+        self.assertRaises(SrFitError, recipe.residual)
+        return
+
+
+    def testProfileGeneratorValidation(self):
+        """Verify ProfileGenerator object validates as expected.
+        """
+        recipe = self.recipe
+        pgen = ProfileGenerator('gen')
+        recipe.cont.addProfileGenerator(pgen)
+        # initial ProfileGenerator should be valid
+        recipe.residual()
+        # invalidate the ProfileGenerator
+        pgen.profile = None
+        recipe._updateConfiguration()
+        self.assertRaises(SrFitError, recipe.residual)
         return
 
 # End of class TestFitRecipe
